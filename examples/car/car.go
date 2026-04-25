@@ -8,7 +8,7 @@ import (
 )
 
 type car struct {
-	Id int64
+	ID int64
 	Brand string
 	MaxSpeed int
 	FuelType string
@@ -35,19 +35,19 @@ func main () {
 	db.AutoMigrate(&car{})
 	db.Create([]*car{
 		{
-			Id: 56824872385798278,
+			ID: 56824872385798278,
 			Brand: "Lamborghini",
 			MaxSpeed: 330,
 			FuelType: "Benzina",
 		},
 		{
-			Id: 50884873382798278,
+			ID: 50884873382798278,
 			Brand: "BMW",
 			MaxSpeed: 216,
 			FuelType: "Diesel",
 		},
 		{
-			Id: 14824278395758208,
+			ID: 14824278395758208,
 			Brand: "FIAT",
 			MaxSpeed: 160,
 			FuelType: "Benzina",
