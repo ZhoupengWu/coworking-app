@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func main () {
+func main() {
 	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
@@ -19,37 +19,35 @@ func main () {
 }
 
 type creditCard struct {
-	Number string `json:"number"`
-	SecurityCode string `json:"-"`
-	Expiration *time.Time `json:"expiration,omitempty"`
+	Number       string     `json:"number"`
+	SecurityCode string     `json:"-"`
+	Expiration   *time.Time `json:"expiration,omitempty"`
 }
 
-func GetCreditCards (ctx *gin.Context) {
+func GetCreditCards(ctx *gin.Context) {
 	expirationDate := time.Now().AddDate(1, 0, 0)
 	cards := []creditCard{
 		{
-			Number: "1234",
+			Number:       "1234",
 			SecurityCode: "999",
-			Expiration: &expirationDate,
+			Expiration:   &expirationDate,
 		},
 		{
-			Number: "1567",
+			Number:       "1567",
 			SecurityCode: "259",
 		},
 		{
-			Number: "1964",
+			Number:       "1964",
 			SecurityCode: "146",
 		},
 		{
-			Number: "9610",
+			Number:       "9610",
 			SecurityCode: "670",
 		},
 	}
 
 	ctx.IndentedJSON(http.StatusOK, cards)
 }
-
-
 
 /* func main () {
 	gin.SetMode(gin.DebugMode)
@@ -83,8 +81,6 @@ func UnsafeHandler (ctx *gin.Context) {
 	val := ctx.MustGet(keyToGet)
 	ctx.String(http.StatusOK, val.(string))
 } */
-
-
 
 /* func main () {
 	var a1 interface{}
@@ -132,9 +128,6 @@ func (b ball) bounce () string {
 	return "Boom!"
 } */
 
-
-
-
 /* func main () {
 	c1 := circle{
 		radius: 5,
@@ -176,9 +169,6 @@ func (r rect) area () float64 {
 	return r.width * r.height
 } */
 
-
-
-
 /* func main () {
 	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
@@ -196,8 +186,6 @@ func (r rect) area () float64 {
 func HandlerHealthCheck (ctx *gin.Context) {
 	ctx.String(http.StatusOK, fmt.Sprintln("The system is health"))
 } */
-
-
 
 /*
 func main () {

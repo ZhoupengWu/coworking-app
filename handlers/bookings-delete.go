@@ -6,6 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func DeleteBooking (ctx *gin.Context) {
+func DeleteBooking(ctx *gin.Context) {
 	ctx.String(http.StatusOK, "DeleteBooking()")
 }
