@@ -2,12 +2,26 @@ package main
 
 import (
 	"coworkingApp/handlers"
+	"coworkingApp/models"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 func main () {
 	gin.SetMode(gin.DebugMode)
+	dsn := "host=localhost port=10000 user=postgres password=postgres dbname=postgres sslmode=disable"
+	db, err := gorm.Open(postgres.Open(dsn))
+
+	if err != nil {
+		panic(err)
+	}
+
+	db.AutoMigrate(&models.User{})
+	db.AutoMigrate(&models.Room{})
+	db.AutoMigrate(&models.Photo{})
+	db.AutoMigrate(&models.Booking{})
 	r := gin.Default()
 
 	r.GET("/rooms", handlers.GetAllRooms)
@@ -22,49 +36,3 @@ func main () {
 		panic(err)
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-func main () {
-	router := http.NewServeMux()
-	router.HandleFunc("/example", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Println("/example endpoint has been invoked")
-		w.Write([]byte(fmt.Sprintf("This is a demo endpoint...")))
-	})
-	router.HandleFunc("/health", HandlerHealthCheck)
-
-	err := http.ListenAndServe(":8089", router)
-
-	if err != nil {
-		panic(err)
-	}
-}
-
-func HandlerHealthCheck (w http.ResponseWriter, r *http.Request) {
-	fmt.Println("HandlerHealthCheck has been invoked")
-
-	if r.Method != http.MethodGet {
-		w.Write([]byte(fmt.Sprintf("The request must be a GET")))
-
-		return
-	}
-
-	w.Write([]byte(fmt.Sprintf("The system is health")))
-} */
