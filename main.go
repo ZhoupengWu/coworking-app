@@ -2,6 +2,7 @@ package main
 
 import (
 	"coworkingApp/handlers"
+	"coworkingApp/middleware"
 	"coworkingApp/models"
 	"coworkingApp/utils"
 
@@ -24,7 +25,15 @@ func main() {
 	db.AutoMigrate(&models.Photo{})
 	db.AutoMigrate(&models.Booking{})
 	seedData(db)
+
 	r := gin.Default()
+
+	r.Use(middleware.EarlyExitOnPreflighRequests())
+	r.Use(middleware.SetCorsPolicy("http://127.0.0.1:6000"))
+	r.Use(func(ctx *gin.Context) {
+		ctx.Set("DbKey", db)
+		ctx.Next()
+	})
 
 	r.GET("/rooms", handlers.GetAllRooms)
 	r.GET("/rooms/:id", handlers.GetRoomByID)
