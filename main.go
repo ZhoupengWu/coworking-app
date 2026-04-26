@@ -5,16 +5,31 @@ import (
 	"coworkingApp/middleware"
 	"coworkingApp/models"
 	"coworkingApp/utils"
+	"encoding/json"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
+var config models.CoworkingConfig
+
+func init() {
+	data, err := os.ReadFile("config/config.json")
+
+	if err != nil {
+		panic(err)
+	}
+
+	if err := json.Unmarshal([]byte(data), &config); err != nil {
+		panic(err)
+	}
+}
+
 func main() {
 	gin.SetMode(gin.DebugMode)
-	dsn := "host=localhost port=10000 user=postgres password=postgres dbname=postgres sslmode=disable"
-	db, err := gorm.Open(postgres.Open(dsn))
+	db, err := gorm.Open(postgres.Open(config.Dsn))
 
 	if err != nil {
 		panic(err)
@@ -29,9 +44,10 @@ func main() {
 	r := gin.Default()
 
 	r.Use(middleware.EarlyExitOnPreflighRequests())
-	r.Use(middleware.SetCorsPolicy("http://127.0.0.1:6000"))
+	r.Use(middleware.SetCorsPolicy(config.AllowedOrigins))
 	r.Use(func(ctx *gin.Context) {
 		ctx.Set("DbKey", db)
+		ctx.Set("ConfigKey", config)
 		ctx.Next()
 	})
 
