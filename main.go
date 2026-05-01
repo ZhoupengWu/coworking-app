@@ -57,10 +57,11 @@ func main() {
 	r.GET("/rooms", handlers.GetAllRooms)
 	r.GET("/rooms/:id", handlers.GetRoomByID)
 	r.GET("/rooms/:id/photos", handlers.GetRoomPhotos)
-	r.GET("/bookings", handlers.GetBookingsByUserID)
-	r.GET("/bookings/:id", handlers.GetBookingsByID)
-	r.POST("/bookings", handlers.AddBooking)
-	r.DELETE("/bookings/:id", handlers.DeleteBooking)
+
+	r.GET("/bookings", middleware.AuthorizeUser(), handlers.GetBookingsByUserID)
+	r.GET("/bookings/:id", middleware.AuthorizeUser(), handlers.GetBookingsByID)
+	r.POST("/bookings", middleware.AuthorizeUser(), handlers.AddBooking)
+	r.DELETE("/bookings/:id", middleware.AuthorizeUser(), handlers.DeleteBooking)
 
 	if err := r.Run(":8080"); err != nil {
 		panic(err)
