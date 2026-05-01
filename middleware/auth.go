@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"coworkingApp/models"
-	"coworkingApp/utils"
+	"coworkingapp/models"
+	"coworkingapp/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

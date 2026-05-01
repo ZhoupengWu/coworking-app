@@ -1,4 +1,4 @@
-module coworkingApp
+module coworkingapp
 
 go 1.25.5
 

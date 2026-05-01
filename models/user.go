@@ -1,7 +1,7 @@
 package models
 
 import (
-	"coworkingApp/utils"
+	"coworkingapp/utils"
 	"errors"
 	"net/http"
 

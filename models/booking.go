@@ -18,8 +18,10 @@ type Booking struct {
 	User      User      `json:"-"`
 }
 
-func CreateBooking(db *gorm.DB, booking Booking) (id *string, err error) {
-	if err = db.Model(&Booking{}).Create(&booking).Error; err != nil {
+func CreateBooking(db *gorm.DB, booking Booking) (*string, error) {
+	err := db.Model(&Booking{}).Create(&booking).Error
+
+	if err != nil {
 		return nil, CoworkingErr{
 			StatusCode: http.StatusInternalServerError,
 			Code:       DbErr,
@@ -27,7 +29,7 @@ func CreateBooking(db *gorm.DB, booking Booking) (id *string, err error) {
 		}
 	}
 
-	return
+	return &booking.ID, nil
 }
 
 func GetBookingsByUserID(db *gorm.DB, userID string) (res []Booking, err error) {

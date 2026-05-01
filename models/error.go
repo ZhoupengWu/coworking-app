@@ -10,6 +10,8 @@ const (
 	DateWrongFormatErr    = "Date has a wrong format. Expected YYYY-MM-DD"
 	MissingTokenErr       = "The JWT token is missing"
 	TokenNotValidErr      = "The JWT token is not valid"
+	MissingParams         = "The param/s or the value/s is/are missing"
+	InvalidRequest        = "The type of param/s is not valid"
 )
 
 type CoworkingErr struct {

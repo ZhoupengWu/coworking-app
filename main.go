@@ -1,10 +1,10 @@
 package main
 
 import (
-	"coworkingApp/handlers"
-	"coworkingApp/middleware"
-	"coworkingApp/models"
-	"coworkingApp/utils"
+	"coworkingapp/handlers"
+	"coworkingapp/middleware"
+	"coworkingapp/models"
+	"coworkingapp/utils"
 	"encoding/json"
 	"os"
 
@@ -42,6 +42,8 @@ func main() {
 	seedData(db)
 
 	r := gin.Default()
+
+	r.Static("/images", "./images")
 
 	r.Use(middleware.EarlyExitOnPreflighRequests())
 	r.Use(middleware.SetCorsPolicy(config.AllowedOrigins))
