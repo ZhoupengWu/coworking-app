@@ -51,6 +51,9 @@ func main() {
 		ctx.Next()
 	})
 
+	r.POST("/auth/login", handlers.Login)
+	r.POST("/auth/signup", handlers.SignUp)
+
 	r.GET("/rooms", handlers.GetAllRooms)
 	r.GET("/rooms/:id", handlers.GetRoomByID)
 	r.GET("/rooms/:id/photos", handlers.GetRoomPhotos)
